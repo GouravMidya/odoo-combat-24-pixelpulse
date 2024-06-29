@@ -24,6 +24,9 @@ const reservationController = require('../controllers/reservationController');
  *         facility:
  *           type: string
  *           description: The ID of the facility being reserved
+ *         Amenity:
+ *           type: string
+ *           description: The ID of the amenity being reserved
  *         startTime:
  *           type: string
  *           format: date-time

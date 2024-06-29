@@ -15,6 +15,7 @@ import {
 import { LockOutlined as LockOutlinedIcon } from "@mui/icons-material";
 import { createTheme, ThemeProvider } from "@mui/material/styles";
 import axios from "axios";
+import { getUserIdFromToken } from "../../utils/authdecode"; // Import getUserIdFromToken function
 
 const theme = createTheme();
 
@@ -31,10 +32,13 @@ const Login = () => {
         `${process.env.REACT_APP_SERVER_URI}/api/auth/login`,
         { email, password, userType }
       );
-      localStorage.setItem("token", response.data.token); // Store token in localStorage
+      const token = response.data.token;
+      const ownerId = getUserIdFromToken(token); // Extract ownerId from token using getUserIdFromToken function
+
+      localStorage.setItem("token", token); // Store token in localStorage
       localStorage.setItem("userRole", response.data.user.role); // Store user role in localStorage
       if (response.data.user.role === "owner") {
-        localStorage.setItem("ownerId", response.data.user._id); // Store ownerId in localStorage
+        localStorage.setItem("ownerId", ownerId); // Store ownerId in localStorage
         window.location.href = "/owner-dashboard"; // Redirect to owner dashboard
       } else if (response.data.user.role === "manager") {
         window.location.href = "/manager-dashboard";

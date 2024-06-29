@@ -86,3 +86,19 @@ exports.getReservationsByAmenityAndDate = async (req, res) => {
         res.status(500).json({ message: 'Server error.' });
     }
 };
+
+// Get all reservations by user ID
+exports.getReservationsByUserId = async (req, res) => {
+  try {
+      const userId = req.params.userId;
+      const reservations = await Reservation.find({ user: userId })
+                                            .populate('facility')
+                                            .populate('amenity');
+      if (!reservations.length) {
+          return res.status(404).json({ message: 'No reservations found for this user' });
+      }
+      res.status(200).json(reservations);
+  } catch (error) {
+      res.status(500).json({ message: error.message });
+  }
+};

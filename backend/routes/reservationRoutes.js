@@ -219,4 +219,34 @@ router.delete('/:id', reservationController.deleteReservation);
  */
 router.post('/amenity', reservationController.getReservationsByAmenityAndDate);
 
+/**
+ * @swagger
+ * /api/reservations/user/{userId}:
+ *   get:
+ *     summary: Get all reservations for a specific user
+ *     tags: 
+ *       - Reservations
+ *     parameters:
+ *       - in: path
+ *         name: userId
+ *         schema:
+ *           type: string
+ *         required: true
+ *         description: ID of the user to fetch reservations for
+ *     responses:
+ *       200:
+ *         description: List of reservations
+ *         content:
+ *           application/json:
+ *             schema:
+ *               type: array
+ *               items:
+ *                 $ref: '#/components/schemas/Reservation'
+ *       404:
+ *         description: No reservations found for this user
+ *       500:
+ *         description: Internal server error
+ */
+router.get('/user/:userId', reservationController.getReservationsByUserId);
+
 module.exports = router;

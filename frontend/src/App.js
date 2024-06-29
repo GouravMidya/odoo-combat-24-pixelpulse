@@ -13,14 +13,34 @@ import CreateOrganizationWithOwner from "./components/Auth/createOrgWithOwner";
 import ReservationForm from "./components/User/ReservationForm";
 import Login from "./components/Auth/Login";
 import CreateEmployee from "./components/createEmployee";
+import UserDashboard from "./components/User/Dashboard";
 
 const App = () => {
   return (
     <BrowserRouter>
       <Routes>
-        <Route path="/owner-dashboard" element={<CreateEmployee />} />
+        <Route path="/owner/create-employee" element={<CreateEmployee />} />
         <Route path="/login" element={<Login />} />
         <Route path="/signup/organization" element={<OrganizationSignup />} />
+        <Route path="/signup/user" element={<UserSignup />} />
+        <Route path="/signup/manager" element={<ManagerSignup />} />
+        <Route path="/signup/owner" element={<OwnerSignup />} />
+        <Route path="/signup" element={<Signup />} />
+        <Route path="/manager/dashboard" element={<Dashboard />} />
+        <Route path="/manager/reservations" element={<Reservations />} />
+        <Route path="/manager/maintenance" element={<Maintenance />} />
+        <Route
+          path="/user/reservation"
+          element={<ReservationForm facilityId="667fb9d31bcbf5bbb9a7e7da" />}
+        />
+        <Route
+          path="/user/dashboard"
+          element={<UserDashboard userId="667fb866b01dee62d1b43182" />}
+        />
+        <Route
+          path="/signup/create-organization-with-owner"
+          element={<CreateOrganizationWithOwner />}
+        />
         <Route path="/signup/user" element={<UserSignup />} />
         <Route path="/signup/manager" element={<ManagerSignup />} />
         <Route path="/signup/owner" element={<OwnerSignup />} />
@@ -34,10 +54,6 @@ const App = () => {
         <Route
           path="/user/reservation"
           element={<ReservationForm facilityId="667fb9d31bcbf5bbb9a7e7da" />}
-        />
-        <Route
-          path="/signup/create-organization-with-owner"
-          element={<CreateOrganizationWithOwner />}
         />
       </Routes>
     </BrowserRouter>

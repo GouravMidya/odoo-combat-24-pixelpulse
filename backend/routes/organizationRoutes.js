@@ -15,6 +15,104 @@ const mongoose = require("mongoose");
 
 /**
  * @swagger
+ * components:
+ *   schemas:
+ *     Organization:
+ *       type: object
+ *       required:
+ *         - name
+ *         - address
+ *         - contactEmail
+ *         - contactPhone
+ *       properties:
+ *         name:
+ *           type: string
+ *           description: The name of the organization
+ *           example: Acme Corp
+ *         address:
+ *           type: object
+ *           required:
+ *             - street
+ *             - city
+ *             - state
+ *             - country
+ *             - postalCode
+ *           properties:
+ *             street:
+ *               type: string
+ *               description: The street address of the organization
+ *               example: 123 Main St
+ *             city:
+ *               type: string
+ *               description: The city of the organization's location
+ *               example: Springfield
+ *             state:
+ *               type: string
+ *               description: The state of the organization's location
+ *               example: IL
+ *             country:
+ *               type: string
+ *               description: The country of the organization's location
+ *               example: USA
+ *             postalCode:
+ *               type: string
+ *               description: The postal code of the organization's location
+ *               example: 62704
+ *         contactEmail:
+ *           type: string
+ *           description: The contact email for the organization
+ *           example: contact@acmecorp.com
+ *         contactPhone:
+ *           type: string
+ *           description: The contact phone number for the organization
+ *           example: +1-555-123-4567
+ *         owner:
+ *           type: string
+ *           format: ObjectId
+ *           description: The ID of the owner (an Employee) of the organization
+ *           example: 60c72b2f9b1d8b3b94b4a2c9
+ *         managers:
+ *           type: array
+ *           items:
+ *             type: string
+ *             format: ObjectId
+ *           description: The IDs of the managers (Employees) of the organization
+ *           example: [60c72b2f9b1d8b3b94b4a2ca, 60c72b2f9b1d8b3b94b4a2cb]
+ *         employees:
+ *           type: array
+ *           items:
+ *             type: string
+ *             format: ObjectId
+ *           description: The IDs of the employees of the organization
+ *           example: [60c72b2f9b1d8b3b94b4a2cc, 60c72b2f9b1d8b3b94b4a2cd]
+ *         facilities:
+ *           type: array
+ *           items:
+ *             type: string
+ *             format: ObjectId
+ *           description: The IDs of the facilities belonging to the organization
+ *           example: [60c72b2f9b1d8b3b94b4a2ce, 60c72b2f9b1d8b3b94b4a2cf]
+ *         imageUrl:
+ *           type: array
+ *           items:
+ *             type: string
+ *           description: URLs of images associated with the organization
+ *           example: ["https://example.com/image1.jpg", "https://example.com/image2.jpg"]
+ *         createdAt:
+ *           type: string
+ *           format: date-time
+ *           description: The date and time when the organization was created
+ *           example: 2023-06-29T12:34:56Z
+ *         updatedAt:
+ *           type: string
+ *           format: date-time
+ *           description: The date and time when the organization was last updated
+ *           example: 2023-06-29T12:34:56Z
+ */
+
+
+/**
+ * @swagger
  * /api/organizations:
  *   post:
  *     summary: Create a new organization

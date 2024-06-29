@@ -60,3 +60,29 @@ exports.deleteFacility = async (req, res) => {
     res.status(500).json({ message: 'Error deleting facility', error: error.message });
   }
 };
+
+// Controller function to fetch facilities within a specified distance from given coordinates
+exports.getFacilitiesWithinDistance = async (req, res) =>{
+  const { longitude, latitude, distance } = req.body;
+
+  // Convert distance to meters (since MongoDB uses meters for geo queries)
+  const distanceInMeters = distance * 1000;
+
+  try {
+      const facilities = await Facility.find({
+          location: {
+              $nearSphere: {
+                  $geometry: {
+                      type: "Point",
+                      coordinates: [longitude, latitude]
+                  },
+                  $maxDistance: distanceInMeters
+              }
+          }
+      }).exec();
+
+      res.json({ facilities });
+  } catch (err) {
+      res.status(500).json({ error: err.message });
+  }
+}

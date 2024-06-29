@@ -240,4 +240,42 @@ router.put("/:id", facilityController.updateFacility);
  */
 router.delete("/:id", facilityController.deleteFacility);
 
+
+/**
+ * @swagger
+ * /api/facility/nearby:
+ *   post:
+ *     summary: Retrieve facilities within a specified distance from given coordinates.
+ *     tags: [Facilities]
+ *     requestBody:
+ *       required: true
+ *       content:
+ *         application/json:
+ *           schema:
+ *             type: object
+ *             properties:
+ *               longitude:
+ *                 type: number
+ *               latitude:
+ *                 type: number
+ *               distance:
+ *                 type: number
+ *     responses:
+ *       '200':
+ *         description: A JSON array of facilities within the specified distance.
+ *         content:
+ *           application/json:
+ *             schema:
+ *               type: object
+ *               properties:
+ *                 facilities:
+ *                   type: array
+ *                   items:
+ *                     $ref: '#/components/schemas/Facility'
+ *       '500':
+ *         description: Internal server error.
+ */
+// Route to fetch facilities within a specified distance
+router.post('/nearby', facilityController.getFacilitiesWithinDistance);
+
 module.exports = router;

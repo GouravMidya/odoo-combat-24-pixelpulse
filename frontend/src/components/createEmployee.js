@@ -2,7 +2,6 @@ import React, { useState, useEffect } from "react";
 import {
   Button,
   TextField,
-  Grid,
   Box,
   Typography,
   Container,
@@ -25,27 +24,30 @@ const CreateEmployee = () => {
   const [password, setPassword] = useState("");
   const [phoneNumber, setPhoneNumber] = useState("");
   const [role, setRole] = useState("manager");
-  const [organizationId, setOrganizationId] = useState("");
   const [hireDate, setHireDate] = useState("");
   const [isLoading, setIsLoading] = useState(false);
   const [error, setError] = useState("");
   const [success, setSuccess] = useState("");
+  const [organizationId, setOrganizationId] = useState("");
 
   useEffect(() => {
-    // Fetch organization ID when component mounts
-    const fetchOrganizationId = async () => {
+    const fetchOwnerDetails = async () => {
       try {
-        // Replace with your API call to get the organization ID of the current owner
-        const response = await axios.get(
-          "http://localhost:5000/api/organization/current"
-        );
-        setOrganizationId(response.data.organizationId);
+        const ownerId = localStorage.getItem("ownerId");
+        if (ownerId) {
+          const response = await axios.get(
+            `${process.env.REACT_APP_SERVER_URI}/api/employees/${ownerId}`
+          );
+          setOrganizationId(response.data.organization._id);
+        } else {
+          setError("Owner ID not found in localStorage");
+        }
       } catch (error) {
-        setError("Error fetching organization ID. Please try again.");
+        setError("Error fetching owner details. Please try again.");
       }
     };
 
-    fetchOrganizationId();
+    fetchOwnerDetails();
   }, []);
 
   const handleSubmit = async (e) => {
@@ -55,16 +57,19 @@ const CreateEmployee = () => {
     setSuccess("");
 
     try {
+      const ownerId = localStorage.getItem("ownerId");
       const response = await axios.post("http://localhost:5000/api/employees", {
+        ownerId,
         firstName,
         lastName,
         email,
         password,
         phoneNumber,
         role,
-        organizationId,
         hireDate,
       });
+
+      // Handle success response
       setSuccess("Employee created successfully!");
       setFirstName("");
       setLastName("");
@@ -74,6 +79,7 @@ const CreateEmployee = () => {
       setRole("manager");
       setHireDate("");
     } catch (error) {
+      // Handle error response
       setError("Error creating employee. Please try again.");
     } finally {
       setIsLoading(false);

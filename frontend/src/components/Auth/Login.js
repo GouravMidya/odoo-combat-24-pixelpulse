@@ -1,4 +1,3 @@
-// src/components/Auth/Login.js
 import React, { useState } from "react";
 import {
   Button,
@@ -33,13 +32,13 @@ const Login = () => {
         { email, password, userType }
       );
       localStorage.setItem("token", response.data.token); // Store token in localStorage
-      // Redirect based on user role
-      const userRole = response.data.user.role;
-      if (userRole === "owner") {
-        window.location.href = "/owner-dashboard";
-      } else if (userRole === "manager") {
+      localStorage.setItem("userRole", response.data.user.role); // Store user role in localStorage
+      if (response.data.user.role === "owner") {
+        localStorage.setItem("ownerId", response.data.user._id); // Store ownerId in localStorage
+        window.location.href = "/owner-dashboard"; // Redirect to owner dashboard
+      } else if (response.data.user.role === "manager") {
         window.location.href = "/manager-dashboard";
-      } else if (userRole === "staff") {
+      } else if (response.data.user.role === "staff") {
         window.location.href = "/staff-dashboard";
       } else {
         window.location.href = "/user-dashboard";
@@ -115,7 +114,6 @@ const Login = () => {
               fullWidth
               variant="contained"
               sx={{ mt: 3, mb: 2 }}
-              onClick={handleSubmit}
             >
               Sign In
             </Button>

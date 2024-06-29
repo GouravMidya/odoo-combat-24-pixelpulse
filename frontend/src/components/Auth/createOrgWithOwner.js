@@ -71,19 +71,21 @@ const CreateOrganizationWithOwner = () => {
             alignItems: "center",
           }}
         >
-          <Typography component="h1" variant="h5">
+          <Typography component="h1" variant="h5" sx={{ mb: 3 }}>
             Organization Signup
           </Typography>
-          {error && <p>{error}</p>}
+          {error && <Typography color="error">{error}</Typography>}
           <Box
             component="form"
             onSubmit={handleCreateOrganizationWithOwner}
             noValidate
             sx={{ mt: 1 }}
           >
-            <Grid container spacing={2}>
+            <Grid container spacing={4}>
               <Grid item xs={12} sm={6}>
-                <Typography variant="h6">Organization Details</Typography>
+                <Typography variant="h6" sx={{ mb: 2 }}>
+                  Organization Details
+                </Typography>
                 <TextField
                   margin="normal"
                   required
@@ -168,7 +170,9 @@ const CreateOrganizationWithOwner = () => {
                 />
               </Grid>
               <Grid item xs={12} sm={6}>
-                <Typography variant="h6">Owner Details</Typography>
+                <Typography variant="h6" sx={{ mb: 2 }}>
+                  Owner Details
+                </Typography>
                 <TextField
                   margin="normal"
                   required

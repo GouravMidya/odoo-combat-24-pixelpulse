@@ -39,7 +39,7 @@ const Login = () => {
       localStorage.setItem("userRole", response.data.user.role); // Store user role in localStorage
       if (response.data.user.role === "owner") {
         localStorage.setItem("ownerId", ownerId); // Store ownerId in localStorage
-        window.location.href = "/owner-dashboard"; // Redirect to owner dashboard
+        window.location.href = "/owner/create-employee"; // Redirect to owner dashboard
       } else if (response.data.user.role === "manager") {
         window.location.href = "/manager-dashboard";
       } else if (response.data.user.role === "staff") {

@@ -17,32 +17,53 @@ const { authenticateToken, authorizeRole } = require('../middleware/auth');
  *     User:
  *       type: object
  *       required:
+ *         - firstName
+ *         - lastName
  *         - username
  *         - email
  *         - password
+ *         - phoneNumber
  *       properties:
- *         id:
+ *         firstName:
  *           type: string
- *           description: The auto-generated id of the user
+ *         lastName:
+ *           type: string
  *         username:
  *           type: string
- *           description: The username of the user
+ *           uniqueItems: true
  *         email:
  *           type: string
- *           description: The email of the user
- *         role:
+ *           format: email
+ *           uniqueItems: true
+ *         password:
  *           type: string
- *           enum: [user, admin]
- *           description: The role of the user
- *         createdAt:
+ *           format: password
+ *         phoneNumber:
+ *           type: string
+ *         dateOfBirth:
  *           type: string
  *           format: date
- *           description: The date the user was added
- *   securitySchemes:
- *     bearerAuth:
- *       type: http
- *       scheme: bearer
- *       bearerFormat: JWT
+ *         address:
+ *           type: object
+ *           properties:
+ *             street:
+ *               type: string
+ *             city:
+ *               type: string
+ *             state:
+ *               type: string
+ *             country:
+ *               type: string
+ *             postalCode:
+ *               type: string
+ *         membershipType:
+ *           type: string
+ *           enum: [regular, premium, vip]
+ *           default: regular
+ *         createdAt:
+ *           type: string
+ *           format: date-time
+ *           readOnly: true
  */
 
 /**

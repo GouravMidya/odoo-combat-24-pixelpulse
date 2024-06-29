@@ -20,6 +20,9 @@ app.use('/api-docs', swaggerUi.serve, swaggerUi.setup(swaggerSpecs));
 // Define Routes
 app.use('/api/auth', require('./routes/authRoutes'));
 app.use('/api/users', require('./routes/userRoutes'));
+app.use('/api/employees', require('./routes/employeeRoutes'));
+app.use('/api/amenity', require('./routes/amenityRoutes'));
+app.use('/api/facility', require('./routes/facilityRoutes'));
 
 // Error Handler
 app.use(errorHandler);

@@ -18,10 +18,12 @@ import { AdapterDayjs } from '@mui/x-date-pickers/AdapterDayjs';
 import dayjs from 'dayjs';
 import axios from 'axios';
 import { getAmenityByIds } from '../../utils/amenity';
+import { getUserIdFromToken } from '../../utils/authdecode'; // Import your getUserIdFromToken utility function
 
 const BASE_URL = process.env.REACT_APP_SERVER_URI;
 
-const ReservationForm = ({ facilityId }) => {
+const ReservationForm = ({ facilityId, token }) => {
+  const [userId, setUserId] = useState(null);
   const [reservation, setReservation] = useState({
     facility: facilityId,
     amenity: '',
@@ -48,6 +50,15 @@ const ReservationForm = ({ facilityId }) => {
 
     fetchAmenities();
   }, [facilityId]);
+
+  useEffect(() => {
+    // Fetch token from localStorage
+    const token = localStorage.getItem('token');
+    if (token) {
+      const decodedUserId = getUserIdFromToken(token);
+      setUserId(decodedUserId);
+    }
+  }, []);
 
   const handleChange = (event) => {
     const { name, value } = event.target;
@@ -80,13 +91,12 @@ const ReservationForm = ({ facilityId }) => {
     try {
       const formattedReservation = {
         ...reservation,
+        user: userId,
         totalCost: totalRate,
         startTime: reservation.startTime?.toISOString(),
         endTime: reservation.endTime?.toISOString(),
       };
-      console.log(formattedReservation);
       const response = await axios.post(`${BASE_URL}/api/reservations`, formattedReservation);
-      console.log('Reservation created:', response.data);
       // Handle success (e.g., show a success message, clear form, etc.)
     } catch (error) {
       console.error('Error creating reservation:', error);

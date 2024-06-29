@@ -6,7 +6,6 @@ import { AppBar, Toolbar, Typography, Button, Box } from '@mui/material';
 import Dashboard from '../components/Dashboard';
 import Reservations from '../components/Reservations';
 import Maintenance from '../components/Maintenance';
-
 function Manager() {
   const navigate = useNavigate();
 

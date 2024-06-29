@@ -18,12 +18,11 @@ import { AdapterDayjs } from '@mui/x-date-pickers/AdapterDayjs';
 import dayjs from 'dayjs';
 import axios from 'axios';
 import { getAmenityByIds } from '../../utils/amenity';
-import { getUserIdFromToken } from '../../utils/authdecode'; // Import your getUserIdFromToken utility function
+import { loadStripe } from '@stripe/stripe-js';
 
 const BASE_URL = process.env.REACT_APP_SERVER_URI;
 
-const ReservationForm = ({ facilityId, token }) => {
-  const [userId, setUserId] = useState(null);
+const ReservationForm = ({ facilityId }) => {
   const [reservation, setReservation] = useState({
     facility: facilityId,
     amenity: '',
@@ -50,15 +49,6 @@ const ReservationForm = ({ facilityId, token }) => {
 
     fetchAmenities();
   }, [facilityId]);
-
-  useEffect(() => {
-    // Fetch token from localStorage
-    const token = localStorage.getItem('token');
-    if (token) {
-      const decodedUserId = getUserIdFromToken(token);
-      setUserId(decodedUserId);
-    }
-  }, []);
 
   const handleChange = (event) => {
     const { name, value } = event.target;
@@ -91,16 +81,44 @@ const ReservationForm = ({ facilityId, token }) => {
     try {
       const formattedReservation = {
         ...reservation,
-        user: userId,
         totalCost: totalRate,
         startTime: reservation.startTime?.toISOString(),
         endTime: reservation.endTime?.toISOString(),
       };
+      console.log(formattedReservation);
       const response = await axios.post(`${BASE_URL}/api/reservations`, formattedReservation);
+      console.log('Reservation created:', response.data);
       // Handle success (e.g., show a success message, clear form, etc.)
     } catch (error) {
       console.error('Error creating reservation:', error);
       // Handle error (e.g., show error message)
+    }
+  };
+
+  const makePayment = async () => {
+    const stripe = await loadStripe("pk_test_51PWwrrRuh0l7mfz944mYsXJXOMzE8JbrKGAc2VDjSR8NDzS7qMf65gCsmynkvvBuONQrU1V4kP3APfiHlQRL11lm00926SjboJ");
+
+    const body = {
+      reservation,
+      totalRate
+    };
+    const headers = {
+      "Content-Type": "application/json"
+    };
+    const response = await fetch(`${BASE_URL}/api/create-checkout-session`,{
+      method: "POST",
+      headers: headers,
+      body: JSON.stringify(body)
+    });
+
+    const session = await response.json();
+
+    const result = stripe.redirectToCheckout({
+      sessionId: session.id
+    });
+
+    if (result.error) {
+      console.log(result.error);
     }
   };
 
@@ -171,10 +189,11 @@ const ReservationForm = ({ facilityId, token }) => {
             />
 
             <Button
-              type="submit"
+              type="button"
               fullWidth
               variant="contained"
               sx={{ mt: 3, mb: 2 }}
+              onClick={makePayment}
             >
               Go to Payment Page
             </Button>

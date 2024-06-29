@@ -14,6 +14,8 @@ import ReservationForm from "./components/User/ReservationForm";
 import Login from "./components/Auth/Login";
 import CreateEmployee from "./components/createEmployee";
 import UserDashboard from "./components/User/Dashboard";
+import Success from './components/success';
+import Cancel from './components/cancel';
 
 const App = () => {
   return (
@@ -55,6 +57,8 @@ const App = () => {
           path="/user/reservation"
           element={<ReservationForm facilityId="667fb9d31bcbf5bbb9a7e7da" />}
         />
+                <Route path="/success" element={<Success />} />
+                <Route path="/cancel" element={<Cancel />} />
       </Routes>
     </BrowserRouter>
   );

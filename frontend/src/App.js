@@ -9,11 +9,15 @@ import Dashboard from "./components/Dashboard";
 import Reservations from "./components/Reservations";
 import Maintenance from "./components/Maintenance";
 import Signup from "./components/Auth/Signup"; // Original signup component
+import Login from "./components/Auth/Login";
+import CreateEmployee from "./components/createEmployee";
 
 const App = () => {
   return (
     <BrowserRouter>
       <Routes>
+        <Route path="/owner/create-employee" element={<CreateEmployee />} />
+        <Route path="/login" element={<Login />} />
         <Route path="/signup/organization" element={<OrganizationSignup />} />
         <Route path="/signup/user" element={<UserSignup />} />
         <Route path="/signup/manager" element={<ManagerSignup />} />

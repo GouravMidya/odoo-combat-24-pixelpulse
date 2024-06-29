@@ -41,11 +41,11 @@ const Login = () => {
         localStorage.setItem("ownerId", ownerId); // Store ownerId in localStorage
         window.location.href = "/owner/create-employee"; // Redirect to owner dashboard
       } else if (response.data.user.role === "manager") {
-        window.location.href = "/manager-dashboard";
+        window.location.href = "/manager/dashboard";
       } else if (response.data.user.role === "staff") {
         window.location.href = "/staff-dashboard";
       } else {
-        window.location.href = "/user-dashboard";
+        window.location.href = "/user/dashboard";
       }
     } catch (error) {
       setError("Invalid credentials");

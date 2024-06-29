@@ -50,7 +50,7 @@ const App = () => {
           element={<Dashboard token="token" />}
         />
         <Route path="/manager/reservations" element={<Reservations />} />
-        <Route path="/manager/maintenance" element={<Maintenance />} />
+        {/* <Route path="/manager/maintenance" element={<Maintenance />} /> */}
         <Route
           path="/user/reservation"
           element={<ReservationForm facilityId="667fb9d31bcbf5bbb9a7e7da" />}

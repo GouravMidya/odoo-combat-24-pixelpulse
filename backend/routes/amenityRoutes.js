@@ -1,6 +1,6 @@
-const express = require('express');
+const express = require("express");
 const router = express.Router();
-const amenityController = require('../controllers/amenityController');
+const amenityController = require("../controllers/amenityController");
 
 /**
  * @swagger
@@ -40,7 +40,7 @@ const amenityController = require('../controllers/amenityController');
 
 /**
  * @swagger
- * /api/amenities:
+ * /api/amenity:
  *   get:
  *     summary: Get all amenities
  *     tags: [Amenities]
@@ -50,11 +50,11 @@ const amenityController = require('../controllers/amenityController');
  *       500:
  *         description: Server error
  */
-router.get('/', amenityController.getAllAmenities);
+router.get("/", amenityController.getAllAmenities);
 
 /**
  * @swagger
- * /api/amenities/{id}:
+ * /api/amenity/{id}:
  *   get:
  *     summary: Get an amenity by ID
  *     tags: [Amenities]
@@ -72,11 +72,11 @@ router.get('/', amenityController.getAllAmenities);
  *       500:
  *         description: Server error
  */
-router.get('/:id', amenityController.getAmenityById);
+router.get("/:id", amenityController.getAmenityById);
 
 /**
  * @swagger
- * /api/amenities:
+ * /api/amenity:
  *   post:
  *     summary: Create a new amenity
  *     tags: [Amenities]
@@ -94,11 +94,11 @@ router.get('/:id', amenityController.getAmenityById);
  *       500:
  *         description: Server error
  */
-router.post('/', amenityController.createAmenity);
+router.post("/", amenityController.createAmenity);
 
 /**
  * @swagger
- * /api/amenities/{id}:
+ * /api/amenity/{id}:
  *   put:
  *     summary: Update an amenity
  *     tags: [Amenities]
@@ -124,11 +124,11 @@ router.post('/', amenityController.createAmenity);
  *       500:
  *         description: Server error
  */
-router.put('/:id', amenityController.updateAmenity);
+router.put("/:id", amenityController.updateAmenity);
 
 /**
  * @swagger
- * /api/amenities/{id}:
+ * /api/amenity/{id}:
  *   delete:
  *     summary: Delete an amenity
  *     tags: [Amenities]
@@ -146,6 +146,6 @@ router.put('/:id', amenityController.updateAmenity);
  *       500:
  *         description: Server error
  */
-router.delete('/:id', amenityController.deleteAmenity);
+router.delete("/:id", amenityController.deleteAmenity);
 
 module.exports = router;

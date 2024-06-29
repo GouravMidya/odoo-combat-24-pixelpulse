@@ -1,8 +1,8 @@
 // routes/facilityRoutes.js
 
-const express = require('express');
+const express = require("express");
 const router = express.Router();
-const facilityController = require('../controllers/facilityController');
+const facilityController = require("../controllers/facilityController");
 
 /**
  * @swagger
@@ -64,49 +64,49 @@ const facilityController = require('../controllers/facilityController');
  *             monday:
  *               type: object
  *               properties:
- *                 open: 
+ *                 open:
  *                   type: string
  *                 close:
  *                   type: string
  *             tuesday:
  *               type: object
  *               properties:
- *                 open: 
+ *                 open:
  *                   type: string
  *                 close:
  *                   type: string
  *             wednesday:
  *               type: object
  *               properties:
- *                 open: 
+ *                 open:
  *                   type: string
  *                 close:
  *                   type: string
  *             thursday:
  *               type: object
  *               properties:
- *                 open: 
+ *                 open:
  *                   type: string
  *                 close:
  *                   type: string
  *             friday:
  *               type: object
  *               properties:
- *                 open: 
+ *                 open:
  *                   type: string
  *                 close:
  *                   type: string
  *             saturday:
  *               type: object
  *               properties:
- *                 open: 
+ *                 open:
  *                   type: string
  *                 close:
  *                   type: string
  *             sunday:
  *               type: object
  *               properties:
- *                 open: 
+ *                 open:
  *                   type: string
  *                 close:
  *                   type: string
@@ -132,7 +132,7 @@ const facilityController = require('../controllers/facilityController');
 
 /**
  * @swagger
- * /api/facilities:
+ * /api/facility:
  *   get:
  *     summary: Get all facilities
  *     tags: [Facilities]
@@ -142,11 +142,11 @@ const facilityController = require('../controllers/facilityController');
  *       500:
  *         description: Server error
  */
-router.get('/', facilityController.getAllFacilities);
+router.get("/", facilityController.getAllFacilities);
 
 /**
  * @swagger
- * /api/facilities/{id}:
+ * /api/facility/{id}:
  *   get:
  *     summary: Get a facility by ID
  *     tags: [Facilities]
@@ -164,11 +164,11 @@ router.get('/', facilityController.getAllFacilities);
  *       500:
  *         description: Server error
  */
-router.get('/:id', facilityController.getFacilityById);
+router.get("/:id", facilityController.getFacilityById);
 
 /**
  * @swagger
- * /api/facilities:
+ * /api/facility:
  *   post:
  *     summary: Create a new facility
  *     tags: [Facilities]
@@ -186,11 +186,11 @@ router.get('/:id', facilityController.getFacilityById);
  *       500:
  *         description: Server error
  */
-router.post('/', facilityController.createFacility);
+router.post("/", facilityController.createFacility);
 
 /**
  * @swagger
- * /api/facilities/{id}:
+ * /api/facility/{id}:
  *   put:
  *     summary: Update a facility
  *     tags: [Facilities]
@@ -216,11 +216,11 @@ router.post('/', facilityController.createFacility);
  *       500:
  *         description: Server error
  */
-router.put('/:id', facilityController.updateFacility);
+router.put("/:id", facilityController.updateFacility);
 
 /**
  * @swagger
- * /api/facilities/{id}:
+ * /api/facility/{id}:
  *   delete:
  *     summary: Delete a facility
  *     tags: [Facilities]
@@ -238,6 +238,6 @@ router.put('/:id', facilityController.updateFacility);
  *       500:
  *         description: Server error
  */
-router.delete('/:id', facilityController.deleteFacility);
+router.delete("/:id", facilityController.deleteFacility);
 
 module.exports = router;

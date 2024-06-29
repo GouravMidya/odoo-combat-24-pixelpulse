@@ -16,7 +16,7 @@ import CreateEmployee from "./components/createEmployee";
 import UserDashboard from "./components/User/Dashboard";
 import Success from './components/success';
 import Cancel from './components/cancel';
-
+import Browse from './components/User/Browse';
 const App = () => {
   return (
     <BrowserRouter>
@@ -59,6 +59,8 @@ const App = () => {
         />
                 <Route path="/success" element={<Success />} />
                 <Route path="/cancel" element={<Cancel />} />
+                <Route path="/user/browse" element={<Browse />} />
+
       </Routes>
     </BrowserRouter>
   );

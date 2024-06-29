@@ -100,12 +100,51 @@ router.get("/:id", employeeController.getEmployeeById);
  *       content:
  *         application/json:
  *           schema:
- *             $ref: '#/components/schemas/Employee'
+ *             type: object
+ *             properties:
+ *               ownerId:
+ *                 type: string
+ *                 description: ID of the owner to fetch the organization
+ *                 example: 60c72b2f9b1d8b5b4c8a23a3
+ *               firstName:
+ *                 type: string
+ *                 description: First name of the employee
+ *               lastName:
+ *                 type: string
+ *                 description: Last name of the employee
+ *               email:
+ *                 type: string
+ *                 description: Email of the employee
+ *               password:
+ *                 type: string
+ *                 description: Password for the employee
+ *               phoneNumber:
+ *                 type: string
+ *                 description: Phone number of the employee
+ *               role:
+ *                 type: string
+ *                 description: Role of the employee
+ *                 enum: [manager, staff, owner]
+ *               hireDate:
+ *                 type: string
+ *                 format: date
+ *                 description: Hire date of the employee
+ *             required:
+ *               - ownerId
+ *               - firstName
+ *               - lastName
+ *               - email
+ *               - password
+ *               - phoneNumber
+ *               - role
+ *               - hireDate
  *     responses:
  *       201:
  *         description: Employee created successfully
  *       400:
  *         description: Invalid input
+ *       404:
+ *         description: Organization not found
  *       500:
  *         description: Server error
  */

@@ -176,4 +176,47 @@ router.patch('/:id', reservationController.updateReservation);
  */
 router.delete('/:id', reservationController.deleteReservation);
 
+/**
+ * @swagger
+ * /api/reservations/amenity:
+ *   post:
+ *     summary: Get reservations by amenity and date range
+ *     tags: [Reservations]
+ *     requestBody:
+ *       required: true
+ *       content:
+ *         application/json:
+ *           schema:
+ *             type: object
+ *             properties:
+ *               amenityId:
+ *                 type: string
+ *                 description: The ID of the amenity
+ *                 example: 60d21b4667d0d8992e610c85
+ *               startDate:
+ *                 type: string
+ *                 format: date-time
+ *                 description: The start date
+ *                 example: "2023-06-01T00:00:00.000Z"
+ *               endDate:
+ *                 type: string
+ *                 format: date-time
+ *                 description: The end date
+ *                 example: "2023-06-30T23:59:59.999Z"
+ *     responses:
+ *       200:
+ *         description: List of reservations
+ *         content:
+ *           application/json:
+ *             schema:
+ *               type: array
+ *               items:
+ *                 $ref: '#/components/schemas/Reservation'
+ *       400:
+ *         description: Invalid input parameters
+ *       500:
+ *         description: Server error
+ */
+router.post('/amenity', reservationController.getReservationsByAmenityAndDate);
+
 module.exports = router;

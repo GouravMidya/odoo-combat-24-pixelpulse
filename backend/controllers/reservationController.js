@@ -56,3 +56,33 @@ exports.deleteReservation = async (req, res) => {
     res.status(500).json({ message: error.message });
   }
 };
+
+// Function to get reservations by amenity and date range
+exports.getReservationsByAmenityAndDate = async (req, res) => {
+    try {
+        const { amenityId, startDate, endDate } = req.body;
+
+        console.log(req.body)
+
+        // Validate the input parameters
+        if (!amenityId || !startDate || !endDate) {
+            return res.status(400).json({ message: 'Amenity ID, start date, and end date are required.' });
+        }
+
+        const start = new Date(startDate);
+        const end = new Date(endDate);
+
+        const reservations = await Reservation.find({
+            amenity: amenityId,
+            startTime: { $gte: start },
+            endTime: { $lte: end }
+        });
+
+        console.log(reservations)
+
+        res.status(200).json(reservations);
+    } catch (error) {
+        console.error(error);
+        res.status(500).json({ message: 'Server error.' });
+    }
+};

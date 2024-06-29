@@ -1,4 +1,5 @@
 const Employee = require("../models/Employee");
+const Organization = require("../models/Organization");
 
 /**
  * Get all employees
@@ -33,18 +34,29 @@ exports.getEmployeeById = async (req, res) => {
   }
 };
 
-/**
- * Create a new employee
- */
 exports.createEmployee = async (req, res) => {
   try {
-    const newEmployee = new Employee(req.body);
+    // Extract the owner ID from the request body
+    const { ownerId, ...employeeData } = req.body;
+
+    // Fetch the organization using the owner ID
+    const organization = await Organization.findOne({ owner: ownerId });
+
+    // If organization not found, return an error
+    if (!organization) {
+      return res.status(404).json({ message: "Organization not found" });
+    }
+
+    // Set the organization ID in the employee data
+    employeeData.organization = organization._id;
+
+    // Create a new employee with the organization ID
+    const newEmployee = new Employee(employeeData);
     const savedEmployee = await newEmployee.save();
+
     res.status(201).json(savedEmployee);
   } catch (error) {
-    res
-      .status(400)
-      .json({ message: "Error creating employee", error: error.message });
+    res.status(400).json({ message: "Error creating employee", error: error.message });
   }
 };
 

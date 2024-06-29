@@ -5,6 +5,9 @@ import ManagerSignup from './components/Auth/ManagerSignup';
 import OwnerSignup from './components/Auth/OwnerSignup';
 import Signup from './components/Auth/Signup'; // Original signup component
 import OrganizationSignup from './components/Auth/OrganisationSignup';
+import Dashboard from './components/Dashboard';
+import Reservations from './components/Reservations';
+import Maintenance from './components/Maintenance';
 
 const App = () => {
     return (
@@ -15,6 +18,9 @@ const App = () => {
                 <Route path="/signup/manager" element={<ManagerSignup />} />
                 <Route path="/signup/owner" element={<OwnerSignup />} />
                 <Route path="/signup" element={<Signup />} />
+                <Route path="/manager/dashboard"  element={<Dashboard />} />
+                <Route path="/manager/reservations" element={<Reservations />} />
+                <Route path="/manager/maintenance" element={<Maintenance />} />
                 {/* Other routes */}
             </Routes>
         </BrowserRouter>

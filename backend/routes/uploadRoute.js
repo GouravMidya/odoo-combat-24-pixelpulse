@@ -38,7 +38,7 @@ const uploadController = require("../controllers/uploadController"); // Path to 
  *         description: No file uploaded.
  */
 router.post(
-  "/upload/image",
+  "/image",
   upload.single("file"),
   uploadController.uploadImage
 );
@@ -78,7 +78,7 @@ router.post(
  *         description: No file uploaded.
  */
 router.post(
-  "/upload/video",
+  "/video",
   upload.single("file"),
   uploadController.uploadVideo
 );

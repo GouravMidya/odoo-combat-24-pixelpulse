@@ -19,22 +19,22 @@ app.use(cors());
 app.use("/api-docs", swaggerUi.serve, swaggerUi.setup(swaggerSpecs));
 
 // Define Routes
-app.use("/api/admin", require("./routes/adminRoutes"));
-app.use("/api/amenity", require("./routes/amenityRoutes"));
-app.use("/api/auth", require("./routes/authRoutes"));
-app.use("/api/employees", require("./routes/employeeRoutes"));
-app.use("/api/facility", require("./routes/facilityRoutes"));
-app.use("/api/maintenance", require("./routes/maintenanceRoutes"));
-app.use("/api/reservations", require("./routes/reservationRoutes"));
-app.use("/api/review", require("./routes/reviewRoutes"));
-app.use("/api/users", require("./routes/userRoutes"));
-app.use("/api/auth", require("./routes/authRoutes"));
-app.use("/api/users", require("./routes/userRoutes"));
-app.use("/api/employees", require("./routes/employeeRoutes"));
-app.use("/api/amenity", require("./routes/amenityRoutes"));
-app.use("/api/facility", require("./routes/facilityRoutes"));
-app.use("/api", require("./routes/uploadRoute"));
+app.use('/api/admin', require('./routes/adminRoutes'));
+app.use('/api/amenity', require('./routes/amenityRoutes'));
+app.use('/api/auth', require('./routes/authRoutes'));
+app.use('/api/employees', require('./routes/employeeRoutes'));
+app.use('/api/facility', require('./routes/facilityRoutes'));
+app.use('/api/maintenance', require('./routes/maintenanceRoutes'));
 app.use("/api/organizations", require("./routes/organizationRoutes"));
+app.use('/api/reservation', require('./routes/reservationRoutes'));
+app.use('/api/review', require('./routes/reviewRoutes'));
+app.use('/api/users', require('./routes/userRoutes'));
+app.use("/api/auth", require("./routes/authRoutes"));
+app.use("/api/users", require("./routes/userRoutes"));
+app.use("/api/employees", require("./routes/employeeRoutes"));
+app.use("/api/amenity", require("./routes/amenityRoutes"));
+app.use("/api/facility", require("./routes/facilityRoutes"));
+app.use("/api/upload", require("./routes/uploadRoute"));
 
 // Error Handler
 app.use(errorHandler);

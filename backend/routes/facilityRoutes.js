@@ -1,5 +1,3 @@
-// routes/facilityRoutes.js
-
 const express = require("express");
 const router = express.Router();
 const facilityController = require("../controllers/facilityController");
@@ -40,10 +38,15 @@ const facilityController = require("../controllers/facilityController");
  *         location:
  *           type: object
  *           properties:
- *             latitude:
- *               type: number
- *             longitude:
- *               type: number
+ *             type:
+ *               type: string
+ *               enum: [Point]
+ *               default: Point
+ *             coordinates:
+ *               type: array
+ *               items:
+ *                 type: number
+ *               description: Longitude and latitude coordinates of the facility
  *           description: The geographical location of the facility
  *         managers:
  *           type: array
@@ -132,6 +135,13 @@ const facilityController = require("../controllers/facilityController");
 
 /**
  * @swagger
+ * tags:
+ *   name: Facilities
+ *   description: APIs related to facilities management
+ */
+
+/**
+ * @swagger
  * /api/facility:
  *   get:
  *     summary: Get all facilities
@@ -192,7 +202,7 @@ router.post("/", facilityController.createFacility);
  * @swagger
  * /api/facility/{id}:
  *   put:
- *     summary: Update a facility
+ *     summary: Update a facility by ID
  *     tags: [Facilities]
  *     parameters:
  *       - in: path
@@ -222,7 +232,7 @@ router.put("/:id", facilityController.updateFacility);
  * @swagger
  * /api/facility/{id}:
  *   delete:
- *     summary: Delete a facility
+ *     summary: Delete a facility by ID
  *     tags: [Facilities]
  *     parameters:
  *       - in: path
@@ -240,12 +250,11 @@ router.put("/:id", facilityController.updateFacility);
  */
 router.delete("/:id", facilityController.deleteFacility);
 
-
 /**
  * @swagger
  * /api/facility/nearby:
  *   post:
- *     summary: Retrieve facilities within a specified distance from given coordinates.
+ *     summary: Retrieve facilities within a specified distance from given coordinates
  *     tags: [Facilities]
  *     requestBody:
  *       required: true
@@ -261,21 +270,11 @@ router.delete("/:id", facilityController.deleteFacility);
  *               distance:
  *                 type: number
  *     responses:
- *       '200':
- *         description: A JSON array of facilities within the specified distance.
- *         content:
- *           application/json:
- *             schema:
- *               type: object
- *               properties:
- *                 facilities:
- *                   type: array
- *                   items:
- *                     $ref: '#/components/schemas/Facility'
- *       '500':
- *         description: Internal server error.
+ *       200:
+ *         description: A JSON array of facilities within the specified distance
+ *       500:
+ *         description: Internal server error
  */
-// Route to fetch facilities within a specified distance
-router.post('/nearby', facilityController.getFacilitiesWithinDistance);
+router.post("/nearby", facilityController.getFacilitiesWithinDistance);
 
 module.exports = router;

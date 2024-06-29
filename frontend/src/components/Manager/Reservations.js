@@ -1,34 +1,77 @@
-import React, { useState } from 'react';
-import { Container, Typography, TextField, Button, Grid, List, ListItem, ListItemText } from '@mui/material';
+import React, { useState, useEffect } from 'react';
+import {
+  Container,
+  Typography,
+  TextField,
+  Button,
+  Grid,
+  List,
+  ListItem,
+  ListItemText,
+} from '@mui/material';
 import axios from 'axios';
+import { getManagerIdFromToken } from '../../utils/authdecode';
+import { getFacility } from '../../utils/facility';
+import { getAmenityByIds } from '../../utils/amenity';
 
-function Reservations() {
-  const [startDate, setStartDate] = useState(null);
-  const [endDate, setEndDate] = useState(null);
+const BASE_URL = process.env.REACT_APP_SERVER_URI;
+
+function ManagerReservations() {
+  const [startDate, setStartDate] = useState('');
+  const [endDate, setEndDate] = useState('');
   const [reservations, setReservations] = useState([]);
-  const [error, setError] = useState('');
+  const [facility, setFacility] = useState(null);
+
+  useEffect(() => {
+    const fetchFacilityData = async () => {
+      try {
+        const token = localStorage.getItem('token');
+        if (token) {
+          const decodedManagerId = getManagerIdFromToken(token);
+          const response = await axios.get(`${BASE_URL}/api/employees/${decodedManagerId}`);
+          
+          console.log(response.data);
+        }
+      } catch (error) {
+        console.error('Error fetching facility data:', error);
+      }
+    };
+
+    fetchFacilityData();
+  }, []);
 
   const handleSearch = async () => {
     try {
       if (!startDate || !endDate) {
-        setError('Please select both start and end dates.');
+        console.error('Missing required parameters.');
         return;
       }
 
-      const today = new Date().toISOString().split('T')[0]; // Get today's date in YYYY-MM-DD format
+      const amenities = await getAmenityByIds(facility._id);
+      const amenityIds = amenities.map(amenity => amenity._id);
 
-      const response = await axios.get(`/api/reservations?startDate=${startDate}&endDate=${endDate}`);
-      setReservations(response.data);
-      setError('');
+      const reservationPromises = amenityIds.map(amenityId => 
+        axios.post(`${BASE_URL}/api/reservations/amenity`, {
+          amenityId,
+          startDate,
+          endDate,
+        })
+      );
+
+      const reservationResponses = await Promise.all(reservationPromises);
+      const allReservations = reservationResponses.flatMap(response => response.data);
+
+      setReservations(allReservations);
     } catch (error) {
       console.error('Error fetching reservations:', error);
-      setError('Error fetching reservations. Please try again later.');
     }
   };
 
   return (
     <Container maxWidth="lg" sx={{ mt: 4 }}>
-      <Typography variant="h4">Reservations</Typography>
+      <Typography variant="h4" gutterBottom>
+        Manager Reservations
+      </Typography>
       <Grid container spacing={3} sx={{ mt: 2 }}>
         <Grid item xs={12} sm={4}>
           <TextField
@@ -53,30 +96,26 @@ function Reservations() {
             InputLabelProps={{
               shrink: true,
             }}
-            inputProps={{
-              min: startDate || undefined, // Set min date to startDate if it's selected
-            }}
             fullWidth
           />
         </Grid>
-
         <Grid item xs={12} sm={4}>
-          <Button variant="contained" color="primary" onClick={handleSearch} disabled={!startDate || !endDate}>
+          <Button
+            variant="contained"
+            color="primary"
+            onClick={handleSearch}
+            disabled={!startDate || !endDate}
+          >
             Search
           </Button>
         </Grid>
       </Grid>
-      {error && (
-        <Typography variant="body2" color="error" sx={{ mt: 2 }}>
-          {error}
-        </Typography>
-      )}
       <List sx={{ mt: 4 }}>
         {reservations.map((reservation) => (
           <ListItem key={reservation._id}>
             <ListItemText
               primary={`User: ${reservation.user}`}
-              secondary={`Facility: ${reservation.facility}, Start Time: ${reservation.startTime}, End Time: ${reservation.endTime}`}
+              secondary={`Facility: ${reservation.facility}, Amenity: ${reservation.amenity}, Start Time: ${reservation.startTime}, End Time: ${reservation.endTime}`}
             />
           </ListItem>
         ))}
@@ -85,4 +124,4 @@ function Reservations() {
   );
 }
 
-export default Reservations;
+export default ManagerReservations;

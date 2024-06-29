@@ -14,7 +14,7 @@ import ReservationForm from "./components/User/ReservationForm";
 import Login from "./components/Auth/Login";
 import CreateEmployee from "./components/createEmployee";
 import UserDashboard from "./components/User/Dashboard";
-
+import Browse from './components/User/Browse';
 const App = () => {
   return (
     <BrowserRouter>
@@ -55,6 +55,8 @@ const App = () => {
           path="/user/reservation"
           element={<ReservationForm facilityId="667fb9d31bcbf5bbb9a7e7da" />}
         />
+                <Route path="/user/browse" element={<Browse />} />
+
       </Routes>
     </BrowserRouter>
   );

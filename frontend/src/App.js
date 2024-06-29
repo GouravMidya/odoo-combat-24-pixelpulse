@@ -14,13 +14,18 @@ import ReservationForm from "./components/User/ReservationForm";
 import Login from "./components/Auth/Login";
 import CreateEmployee from "./components/createEmployee";
 import UserDashboard from "./components/User/Dashboard";
-import Success from './components/success';
-import Cancel from './components/cancel';
-import Browse from './components/User/Browse';
+import Success from "./components/success";
+import Cancel from "./components/cancel";
+import Browse from "./components/User/Browse";
+import HomePage from "./pages/HomePage";
+import Navbar from "./components/Navbar";
+
 const App = () => {
   return (
     <BrowserRouter>
+      <Navbar />
       <Routes>
+        <Route path="/" element={<HomePage />}></Route>
         <Route path="/owner/create-employee" element={<CreateEmployee />} />
         <Route path="/login" element={<Login />} />
         <Route path="/signup/organization" element={<OrganizationSignup />} />
@@ -57,10 +62,9 @@ const App = () => {
           path="/user/reservation"
           element={<ReservationForm facilityId="667fb9d31bcbf5bbb9a7e7da" />}
         />
-                <Route path="/success" element={<Success />} />
-                <Route path="/cancel" element={<Cancel />} />
-                <Route path="/user/browse" element={<Browse />} />
-
+        <Route path="/success" element={<Success />} />
+        <Route path="/cancel" element={<Cancel />} />
+        <Route path="/user/browse" element={<Browse />} />
       </Routes>
     </BrowserRouter>
   );

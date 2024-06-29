@@ -9,6 +9,7 @@ import Dashboard from "./components/Dashboard";
 import Reservations from "./components/Reservations";
 import Maintenance from "./components/Maintenance";
 import Signup from "./components/Auth/Signup"; // Original signup component
+import ReservationForm from "./components/User/ReservationForm"
 import Login from "./components/Auth/Login";
 import CreateEmployee from "./components/createEmployee";
 
@@ -26,6 +27,7 @@ const App = () => {
         <Route path="/manager/dashboard" element={<Dashboard />} />
         <Route path="/manager/reservations" element={<Reservations />} />
         <Route path="/manager/maintenance" element={<Maintenance />} />
+        <Route path="/user/reservation" element={<ReservationForm facilityId="667fb9d31bcbf5bbb9a7e7da"/>}/>
         <Route
           path="/signup/create-organization-with-owner"
           element={<CreateOrganizationWithOwner />}

@@ -26,7 +26,7 @@ app.use('/api/employees', require('./routes/employeeRoutes'));
 app.use('/api/facility', require('./routes/facilityRoutes'));
 app.use('/api/maintenance', require('./routes/maintenanceRoutes'));
 app.use("/api/organizations", require("./routes/organizationRoutes"));
-app.use('/api/reservation', require('./routes/reservationRoutes'));
+app.use('/api/reservations', require('./routes/reservationRoutes'));
 app.use('/api/review', require('./routes/reviewRoutes'));
 app.use('/api/users', require('./routes/userRoutes'));
 app.use("/api/auth", require("./routes/authRoutes"));
